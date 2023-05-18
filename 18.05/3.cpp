@@ -30,9 +30,15 @@ public:
     Stack() {
         top = nullptr; // Инициализация вершины как пустого списка
     }
+    
+    void push(int value);
+    void pop();
+    void printStack();
+    int findMin();
+    
+};
 
-    // Добавление элемента в стек
-    void push(int value) {
+void Stack::push(int value) {
         // Создание нового узла
         Node* newNode = new Node;
         newNode->data = value;
@@ -42,57 +48,56 @@ public:
         top = newNode;
     }
 
-    // Удаление элемента из стека
-    void pop() {
-        if (top == nullptr) {
-            std::cout << "Стек пуст!" << std::endl;
-            return;
-        }
-
-        // Сохранение указателя на вершину для удаления
-        Node* temp = top;
-
-        // Перемещение указателя вершины на следующий элемент
-        top = top->next;
-
-        // Освобождение памяти удаленного узла
-        delete temp;
+// Удаление элемента из стека
+void Stack::pop() {
+    if (top == nullptr) {
+        std::cout << "Стек пуст!" << std::endl;
+        return;
     }
 
-    // Вывод содержимого стека
-    void printStack() {
-        if (top == nullptr) {
-            std::cout << "Стек пуст!" << std::endl;
-            return;
-        }
+    // Сохранение указателя на вершину для удаления
+    Node* temp = top;
 
-        std::cout << "Содержимое стека: ";
-        Node* current = top;
-        while (current != nullptr) {
-            std::cout << current->data << " ";
-            current = current->next;
-        }
-        std::cout << std::endl;
+    // Перемещение указателя вершины на следующий элемент
+    top = top->next;
+
+    // Освобождение памяти удаленного узла
+    delete temp;
+}
+
+// Вывод содержимого стека
+void Stack::printStack() {
+    if (top == nullptr) {
+        std::cout << "Стек пуст!" << std::endl;
+        return;
     }
 
-    // Поиск минимального элемента в стеке
-    int findMin() {
-        if (top == nullptr) {
-            std::cout << "Стек пуст!" << std::endl;
-            return -1;
-        }
-
-        int minElement = top->data;
-        Node* current = top->next;
-        while (current != nullptr) {
-            if (current->data < minElement) {
-                minElement = current->data;
-            }
-            current = current->next;
-        }
-        return minElement;
+    std::cout << "Содержимое стека: ";
+    Node* current = top;
+    while (current != nullptr) {
+        std::cout << current->data << " ";
+        current = current->next;
     }
-};
+    std::cout << std::endl;
+}
+
+// Поиск минимального элемента в стеке
+int Stack::findMin() {
+    if (top == nullptr) {
+        std::cout << "Стек пуст!" << std::endl;
+        return -1;
+    }
+
+    int minElement = top->data;
+    Node* current = top->next;
+    while (current != nullptr) {
+        if (current->data < minElement) {
+            minElement = current->data;
+        }
+        current = current->next;
+    }
+    return minElement;
+}
 
 int main() {
     Stack stack;
